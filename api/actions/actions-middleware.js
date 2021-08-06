@@ -43,7 +43,33 @@ async function validateActionBody(req, res, next) {
   }
 }
 
+async function validateActionUpdated(req, res, next) {
+  const {
+    project_id,
+    description,
+    notes,
+    completed
+  } = req.body
+  const existingProject = await Projects.get(project_id)
+  if (!project_id || !description || !notes || completed === undefined) {
+    res.status(400).json({
+      message: 'project id, description, notes, and completed required'
+    })
+  } else if (!existingProject) {
+    res.status(404).json({
+      message: `Project with id ${project_id} not found`
+    })
+  } else if (description.length > 128) {
+    res.status(400).json({
+      message: 'Description cannot exceed 128 characters'
+    })
+  } else {
+    next()
+  }
+}
+
 module.exports = {
   validateActionID,
-  validateActionBody
+  validateActionBody,
+  validateActionUpdated
 }
