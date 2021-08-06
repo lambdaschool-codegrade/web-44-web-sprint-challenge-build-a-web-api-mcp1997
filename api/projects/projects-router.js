@@ -5,7 +5,8 @@ const Projects = require('./projects-model')
 
 const {
   validateProjID,
-  validateProjBody
+  validateProjBody,
+  validateProjUpdate,
 } = require('./projects-middleware')
 
 const router = express.Router()
@@ -13,7 +14,11 @@ const router = express.Router()
 router.get('/', (req, res, next) => {
   Projects.get()
     .then(projects => {
-      res.status(200).json(projects)
+      if (!projects) {
+        res.send([])
+      } else {
+        res.status(200).json(projects)
+      } 
     })
     .catch(err => {
       res.status(500).json({
@@ -34,7 +39,7 @@ router.post('/', validateProjBody, (req, res, next) => {
     .catch(next)
 })
 
-router.put('/:id', validateProjID, validateProjBody, (req, res, next) => {
+router.put('/:id', validateProjID, validateProjUpdate, (req, res, next) => {
   Projects.update(req.params.id, req.body)
     .then(updated => {
       res.status(200).json(updated)
@@ -53,7 +58,11 @@ router.delete('/:id', validateProjID, (req, res, next) => {
 router.get('/:id/actions', validateProjID, (req, res, next) => {
   Projects.getProjectActions(req.params.id)
     .then(actions => {
-      res.status(200).json(actions)
+      if (!actions) {
+        res.send([])
+      } else {
+        res.status(200).json(actions)
+      }
     })
     .catch(next)
 })

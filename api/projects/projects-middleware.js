@@ -27,9 +27,21 @@ function validateProjBody(req, res, next) {
   } else {
     next()
   }
-} 
+}
+
+function validateProjUpdate(req, res, next) {
+  const { name, description, completed } = req.body
+  if (!name || !description || completed === undefined) {
+    res.status(400).json({
+      message: 'name, description, and completed required'
+    })
+  } else {
+    next()
+  }
+}
 
 module.exports = {
   validateProjID,
-  validateProjBody
+  validateProjBody,
+  validateProjUpdate
 }
