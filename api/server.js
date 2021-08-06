@@ -3,6 +3,7 @@ const cors = require('cors')
 const helmet = require('helmet')
 
 const projectsRouter = require('./projects/projects-router')
+const actionsRouter = require('./actions/actions-router')
 
 const { logger } = require('./middleware')
 
@@ -15,6 +16,7 @@ server.use(helmet())
 server.use(logger)
 
 server.use('/api/projects', projectsRouter)
+server.use('/api/actions', actionsRouter)
 
 server.get('/', logger, (req, res) => {
   res.send(`
