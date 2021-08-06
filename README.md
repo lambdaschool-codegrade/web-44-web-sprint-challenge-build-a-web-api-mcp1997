@@ -153,7 +153,30 @@ We have provided test data for all the resources.
 Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics. You might prepare by writing down your own answers before hand.
 
 1. The core features of Node.js and Express and why they are useful.
-1. Understand and explain the use of Middleware.
-1. The basic principles of the REST architectural style.
-1. Understand and explain the use of Express Routers.
-1. Describe tooling used to manually test the correctness of an API.
+    Node.js:
+      - uses javascript and paradigm for client AND server. Not having to switch between different languages makes for less errors.
+      - allows for async functions. Crucial for promises.
+      - access to the npm repository. Lots of useful libraries.
+    
+    Express:
+      - build web applications and RESTful web services that work with JSON
+      - power real-time apps
+      - serve content like HTML files, images, and audio files
+      - Express is simple and compatible with many apps. The code is concise and efficient. Most importantly, it allows for middleware.
+
+2. Understand and explain the use of Middleware.
+    Middleware are helper functions that contain logic your endpoints require numerous times. Keeps your code organized and DRY.
+
+3. The basic principles of the REST architectural style.
+    - everything is a resource
+    - each resource is accessible via a unique URI
+    - resources can have multiple representations
+    - communication happens over a stateless protocol
+    - resource management happens via HTTP methods
+
+4. Understand and explain the use of Express Routers.
+    Helps the dev separate endpoints for the sake of organizing them so that they make more sense in regards to the front end. Also keeps the endpoints out of the server file to keep it clean.
+
+5. Describe tooling used to manually test the correctness of an API.
+    Apps like Postman can be used to hit different endpoints/urls in order to test that responses, whether they be data or errors, are going through correctly.
+
