@@ -1,9 +1,32 @@
-const express = require('express');
-const server = express();
+const express = require('express')
+const cors = require('cors')
+const helmet = require('helmet')
 
-// Configure your server here
-// Build your actions router in /api/actions/actions-router.js
-// Build your projects router in /api/projects/projects-router.js
-// Do NOT `server.listen()` inside this file!
+const projectsRouter = require('./projects/projects-router')
+
+const { logger } = require('./middleware')
+
+const server = express()
+
+server.use(express.json())
+server.use(cors())
+server.use(helmet())
+
+server.use(logger)
+
+server.use('/api/projects', projectsRouter)
+
+server.get('/', logger, (req, res) => {
+  res.send(`
+    <h1>Welcome to my Actions and Projects API</h1>
+    <h2>This is a ${req.test}.</h2>
+  `)
+})
+
+server.use('*', (req, res, next) => {
+  res.json({
+    message: 'If all else fails, you will see this message!'
+  })
+})
 
 module.exports = server;
